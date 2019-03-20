@@ -1,0 +1,134 @@
+<div *ngIf="!isBeingEdited">
+    <div class="mapouter">
+        <div class="gmap_canvas" *ngIf="googleMapURL">
+          <iframe width="600" height="500" id="gmap_canvas" [src]='googleMapURL | safe' frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+        </div>
+        <style>.mapouter{height:350px;}.gmap_canvas {overflow:hidden;background:none!important;height:350px;}</style>
+      </div>
+      <div class="bloc">
+        <h3>{{ commerceService.commerce.details.town }}</h3>
+        <button class="edit" data-toggle="modal" data-target="#modalDetails"><i class="fas fa-pencil-alt"></i></button>
+        <div class="form-row">
+                <div class="form-group col-md-6">
+                      <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" [checked]="commerceService.commerce.details.easy_access"  >
+                            <label class="custom-control-label" >Accès PMR</label>
+                    </div>
+            </div>
+            <div class="form-group col-md-6">
+                    <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" [checked]="commerceService.commerce.details.downtown" >
+                            <label class="custom-control-label" >Centre ville</label>
+                  </div>
+          </div>
+        </div>
+        <p>{{ commerceService.commerce.details.adresse }} - {{ commerceService.commerce.details.postal  }}</p>
+        <p>{{ commerceService.commerce.details.email }}</p>
+        <p>{{ commerceService.commerce.details.fax }}</p>
+        <p>{{ commerceService.commerce.details.website_url }}</p>
+        <p>Reponsable : {{ commerceService.commerce.details.contact_name }}</p>
+        <p>{{ commerceService.commerce.details.telephone }}</p>
+        <p>{{ commerceService.commerce.details.portable }}</p>
+
+        <span class="badge badge-secondary">{{ commerceService.commerce.details.sector }}</span> <span class="badge badge-secondary">{{ commerceService.commerce.details.subsector }}</span>   
+
+      </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalDetails">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+            <form [formGroup]="detailsForm">
+        <div class="modal-body ">
+              <div class="bloc">
+                   
+                  <div class="form-group">
+                    <label>Code postal <span class="required">*</span></label>
+                    <input formControlName="postal" type="number" class="form-control" required>
+                    <div class="error" *ngIf="detailsForm.controls.postal.hasError('required')">
+                        Un code postal est requis
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Ville <span class="required">*</span></label>
+                    <input formControlName="town" type="text" class="form-control" required>
+                    <div class="error" *ngIf="detailsForm.controls.town.hasError('required')">
+                        Une ville est requise
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label>Adresse <span class="required">*</span></label>
+                      <input formControlName="adresse" type="text" class="form-control">
+                      <div class="error" *ngIf="detailsForm.controls.adresse.hasError('required')" required>
+                        Une adresse est requise
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Nom & Prénom de contact <span class="required">*</span></label>
+                    <input formControlName="contact_name" type="text" class="form-control" required>
+                    <div class="error" *ngIf="detailsForm.controls.contact_name.hasError('required')">
+                        Nom & Prénom requis
+                      </div>
+                </div>
+                <div class="form-group">
+                    <label>Téléphone <span class="required">*</span></label>
+                    <input formControlName="telephone" type="text" class="form-control" required>
+                    <div class="error" *ngIf="detailsForm.controls.telephone.hasError('required')">
+                        Un numéro de téléphone est requis
+                      </div>
+                </div>
+                <div class="form-row">
+                        <div class="form-group col-md-2">
+                              <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" formControlName="easy_access" id="1" >
+                                    <label class="custom-control-label" for="1">Accès PMR</label>
+                            </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                            <div class="custom-control custom-checkbox">
+                                  <input type="checkbox" class="custom-control-input" formControlName="downtown" id="2" >
+                            <label class="custom-control-label"  for="2">Accès Centre ville</label>
+                        </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Secteur</label>
+                    <select class="form-control" id="1">
+                      <option>Construction</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Sous secteur</label>
+                    <select class="form-control" id="2">
+                      <option>Construction</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                      <label>email</label>
+                      <input formControlName="email" type="email" class="form-control">
+                  </div>
+                  <div class="form-group">
+                      <label>fax</label>
+                      <input formControlName="fax" type="text" class="form-control">
+                  </div>
+                  <div class="form-group">
+                      <label>Site internet</label>
+                      <input formControlName="fax" type="text" class="form-control">
+                  </div>
+                  <div class="form-group">
+                      <label>Portable</label>
+                      <input formControlName="portable"  type="text" class="form-control">
+                  </div>
+                 
+                </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" data-dismiss="modal" (click)="saveModification()" [disabled]="detailsForm.invalid">Sauvegarder</button>
+                  <button class="btn btn"  type="button"  data-dismiss="modal" (click)="cancel()">Annuler</button>
+                  
+          </div>
+        </form>
+
+      </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="bloc" >
+        <h1>{{ commerceService.commerce.name }}</h1> 
+        <button class="edit" data-toggle="modal" data-target="#modalHeader"><i class="fas fa-pencil-alt"></i></button>
+        <p>{{ commerceService.commerce.short_description }}</p>
+    </div>
+</div>
+<div class="modal fade" id="modalHeader">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+            <form [formGroup]="headerForm">
+        <div class="modal-body">
+                <div class="form-group">
+                     <label>Nom commercial <span class="required">*</span></label>
+                    <input class="form-control" formControlName="name"  value="" required >
+                    <div class="error" *ngIf="headerForm.controls.name.hasError('required')">
+                      Un nom commercial est requis
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Mot commercant </label>
+                    <textarea class="form-control"  rows="5" formControlName="short_description"> </textarea>
+                </div>
+        </div>
+        <div class="modal-footer">
+                <button class="btn btn-primary" type="button" data-dismiss="modal" (click)="saveModification()" [disabled]="headerForm.invalid">Sauvegarder</button>
+                <button class="btn btn"  type="button"  data-dismiss="modal" (click)="cancel()">Annuler</button>
+            </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  
+

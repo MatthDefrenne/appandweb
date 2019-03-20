@@ -1,0 +1,12 @@
+<button class="contact" *ngIf="!ctaBeingEdited">{{CTA}}</button>
+<div *ngIf="ctaBeingEdited" class="bloc mb25 mt25">
+<div class="form-group">
+      <input class="form-control" [(ngModel)]="CTA">
+    <span class="error" *ngIf="CTA.length > 20">
+          Bouton limité à 20 caractères
+    </span>
+</div>
+    <button class="btn btn-primary" type="button" data-dismiss="modal" (click)="saveCTAButton()" [disabled]="CTA.length > 20 || CTA.length == 0">Sauvegarder</button>
+    <button class="btn btn"  type="button"  data-dismiss="modal" (click)="cancel()">Annuler</button>
+</div>
+<button class="edit special"  *ngIf="!ctaBeingEdited" (click)="ctaBeingEdited = !ctaBeingEdited"><i class="fas fa-pencil-alt"></i></button>

@@ -1,0 +1,35 @@
+<div class="bloc">
+  <h3>Horaire</h3>
+  <button class="edit" data-toggle="modal" data-target="#modalSchedule"><i class="fas fa-pencil-alt"></i></button>
+  <div *ngFor="let schedule of commerceService.commerce.schedule">
+      <div>{{schedule.day}}<span class="float-right" *ngIf="!schedule.closed">{{schedule.opening}} - {{schedule.closing}}</span><span  *ngIf="schedule.closed"  class="float-right">Fermé</span></div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="modalSchedule">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body ">
+              <div class="form-group" *ngFor="let schedule of commerceService.commerce.schedule; let index = index">
+                  <label>{{schedule.day}}</label>
+                  <p class="error" *ngIf="schedule.closed == false && (!schedule.opening  || !schedule.closing)">Merci de remplire une heure d'ouverture et de fermeture</p>
+                  <div class="row">
+                      <div class="col-sm-4">
+                            <input class="form-control" type="time" [(ngModel)]="schedule.opening" [disabled]="schedule.closed">
+                      </div>
+                      <div class="col-sm-1">
+                          à
+                      </div>
+                      <div class="col-sm-4">
+                            <input class="form-control" type="time" [(ngModel)]="schedule.closing" [disabled]="schedule.closed">
+                      </div>
+                      <div class="col-sm-3">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" [(ngModel)]="schedule.closed" [checked]="schedule.closed" [id]="index">
+                                <label class="custom-control-label" [for]="index">Fermé</label>
+                            </div>
+                      </div>
+                  </div>
+              </div>
+        </div>
+    </div>
+</div>

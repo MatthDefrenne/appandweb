@@ -1,0 +1,14 @@
+<h3>Galerie</h3> 
+<input type="file" class="add-photo-input" accept="image/*" (change)="readURL($event);">
+
+<div class="galery">
+    <div *ngIf="commerceService.commerce.galery.length > 0">
+        <div class="image" *ngFor="let image_url of commerceService.commerce.galery; let index = index">
+          <img [src]="image_url">
+          <button class="remove" (click)="removeImage(index)">  <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+
+      <p *ngIf="commerceService.commerce.galery.length <= 0">Aucune photo</p>
+</div>

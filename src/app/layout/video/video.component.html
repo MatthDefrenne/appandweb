@@ -1,0 +1,13 @@
+<div class="bloc" *ngIf="!isBeingEdited">
+  <h3>Vidéo</h3>
+  <button class="edit" (click)="isBeingEdited = true"><i class="fas fa-pencil-alt"></i></button>
+  <iframe width="80%" height="450" [src]="url_video | safe" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+<div class="bloc" *ngIf="isBeingEdited">
+    <div class="form-group">
+        <label>Lien vidéo youtube <span class="required"></span></label>
+        <input  type="text" class="form-control" placeholder="Lien vidéo youtube" [(ngModel)]="url_video">
+    </div>
+    <button class="btn btn-primary" type="button" (click)="saveModification()">Sauvegarder</button>
+    <button class="btn btn"  type="button"  (click)="cancel()">Annuler</button>
+</div>

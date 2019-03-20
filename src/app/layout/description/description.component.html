@@ -1,0 +1,15 @@
+<div class="bloc" *ngIf="!isBeingEdited">
+    <h3>Description</h3>
+    <button class="edit" (click)="isBeingEdited = true"><i class="fas fa-pencil-alt"></i></button>
+    <p *ngIf="description.length > 0">{{description}}</p>
+    <p *ngIf="description.length <= 0">Aucune description</p>
+
+</div>
+<div class="bloc" *ngIf="isBeingEdited">
+    <div class="form-group">
+        <label>Description </label>
+        <textarea class="form-control"  rows="5" [(ngModel)]="description" name="description" placeholder="Votre description"></textarea>
+    </div>
+    <button class="btn btn-primary" type="button" (click)="saveModification()">Sauvegarder</button>
+    <button class="btn btn"  type="button"  (click)="cancel()">Annuler</button>
+</div>
